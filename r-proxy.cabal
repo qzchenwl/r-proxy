@@ -15,11 +15,21 @@ cabal-version:       >=1.10
 executable r-proxy
   hs-source-dirs:      src
   main-is:             Main.hs
+  other-modules:       Conf
+                     , Replace
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5
                      , http-reverse-proxy
                      , conduit-extra
                      , warp
+                     , wai
                      , wai-extra
                      , http-client
-                     , text-regex-replace
+                     , pcre-heavy
+                     , yaml
+                     , MissingH
+                     , bytestring
+                     , text
+                     , attoparsec
+                     , safe
+                     , classy-prelude

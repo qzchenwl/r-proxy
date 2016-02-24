@@ -1,0 +1,14 @@
+rules:
+    - regex: http://www.domain.com/html/file.html
+      url: http://www.domain.com
+      ip: 127.0.0.1
+      port: 8080
+
+    - regex: http://www.domain.com/html/(.*)
+      url: http://www.domain.com/$1
+      ip: 127.0.0.1
+      port: 8080
+
+    - regex: http://www.domain.com/sockjs-node/.*
+      ip: 127.0.0.1
+      port: 8080
