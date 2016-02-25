@@ -29,7 +29,7 @@ main = do
 getReqDest rules req = do
     let url = toUrl req
         rule = find (\r -> match (unRegex r) (unpack url)) rules
-    putStrLn $ "reqest url: " <> url
+    putStrLn $ "request url: " <> url
     case rule of
       Nothing -> return (WPRProxyDest (ProxyDest {pdHost = host, pdPort = port}))
           where (host, port) = getHostPort req
