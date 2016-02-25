@@ -1,5 +1,10 @@
 ﻿# 一个简单的反向代理
-配置文件格式YAML
+
+## 运行方式
+`r-proxy [port]`。配置文件为当前目录下conf.yaml。默认监听端口是3000。
+
+
+## 配置文件格式
 ```yaml
 rules:
     - regex: http://www.domain.com/path/
