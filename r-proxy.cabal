@@ -25,7 +25,7 @@ executable r-proxy
                      , wai
                      , wai-extra
                      , http-client
-                     , pcre-heavy
+                     , regex-pcre-builtin
                      , yaml
                      , MissingH
                      , bytestring

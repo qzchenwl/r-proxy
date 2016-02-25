@@ -6,7 +6,7 @@ module Replace where
 import qualified Prelude
 import ClassyPrelude
 import Data.Attoparsec.Text (Parser, parseOnly, takeWhile1, decimal, char, endOfInput)
-import Text.Regex.PCRE.Heavy (Regex, scan)
+import Text.Regex.PCRE (Regex, match)
 import Safe (atMay)
 
 type Replace = [Text] -> Text
@@ -35,6 +35,6 @@ replacement = concat <$> many (dollarGroup <|> raw)
 
 replace :: Source -> Regex -> Target -> Text
 replace source regex target = (parseReplace target) matches
-    where matches = case scan regex source of
-            [(x, xs)] -> x:xs
+    where matches = case match regex (unpack source) of
+            (x:xs) -> (map pack x)
             _ -> []

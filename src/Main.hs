@@ -12,7 +12,7 @@ import Network.Wai.Middleware.RequestLogger
 import Data.Conduit.Network
 import qualified Network.HTTP.Client as HC
 
-import Text.Regex.PCRE.Heavy ((=~))
+import Text.Regex.PCRE (match)
 import Safe (atMay)
 
 import Conf
@@ -28,7 +28,7 @@ main = do
 
 getReqDest rules req = do
     let url = toUrl req
-        rule = find (\r -> url =~ unRegex r) rules
+        rule = find (\r -> match (unRegex r) (unpack url)) rules
     putStrLn $ "reqest url: " <> url
     case rule of
       Nothing -> return (WPRProxyDest (ProxyDest {pdHost = host, pdPort = port}))
