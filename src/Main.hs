@@ -5,6 +5,7 @@ module Main where
 
 import qualified Prelude
 import ClassyPrelude
+
 import Network.HTTP.ReverseProxy
 import Network.Wai
 import Network.Wai.Handler.Warp
@@ -18,12 +19,20 @@ import Safe (atMay)
 import Conf
 import Replace
 import Utils
+import Cli
 
 main :: IO ()
-main = do
-    port <- fromMaybe 3000 . listToMaybe . catMaybes . map readInt <$> getArgs
-    Just (Conf rules) <- decodeFile "conf.yaml" :: IO (Maybe Conf)
+main = parseOptions >>= serve
+
+serve :: Options -> IO ()
+serve (Options port conf) = do
+    Just (Conf rules) <- decodeFile conf :: IO (Maybe Conf)
     manager <- HC.newManager HC.defaultManagerSettings
+
+    putStrLn $ "Simple Reverse Proxy"
+    putStrLn $ "\tPort\t" <> pack (show port)
+    putStrLn $ "\tConfig\t" <> pack conf
+
     run port $ waiProxyTo (getReqDest rules) defaultOnExc manager
 
 getReqDest rules req = do

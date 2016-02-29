@@ -33,3 +33,4 @@ executable r-proxy
                      , attoparsec
                      , safe
                      , classy-prelude
+                     , optparse-applicative
